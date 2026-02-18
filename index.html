@@ -4,38 +4,50 @@
 <meta charset="UTF-8">
 <title>For Sheruu Di 💜</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 body {
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
-}
-
-.container {
   text-align: center;
-  position: relative;
-  width: 90%;
-  max-width: 700px;
+  color: #5a3e4d;
 }
 
-.message {
+.card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(15px);
+  padding: 40px;
+  border-radius: 25px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  animation: fadeIn 2s ease forwards;
+}
+
+h1 {
   font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  margin-bottom: 15px;
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 1.5s ease;
+  transform: translateY(20px);
+  transition: all 1.2s ease;
 }
 
 .show {
@@ -43,18 +55,11 @@ body {
   transform: translateY(0);
 }
 
-.small {
-  font-size: 1.4rem;
-  margin-top: 20px;
-  line-height: 1.6;
-}
-
-.big {
-  font-size: 2.5rem;
+.bro {
+  font-size: 1.6rem;
   font-weight: 700;
-  margin-top: 30px;
-  color: #ffb3ff;
-  text-shadow: 0 0 15px #ff66ff;
+  margin-top: 20px;
+  color: #d63384;
 }
 
 /* Floating hearts */
@@ -62,36 +67,24 @@ body {
   position: absolute;
   bottom: -20px;
   font-size: 20px;
-  animation: floatUp 8s linear infinite;
-  opacity: 0.6;
+  animation: floatUp 7s linear infinite;
+  opacity: 0.7;
 }
 
 @keyframes floatUp {
   0% {
-    transform: translateY(0) scale(1);
-    opacity: 0.6;
+    transform: translateY(0);
+    opacity: 0.7;
   }
   100% {
-    transform: translateY(-110vh) scale(1.5);
+    transform: translateY(-110vh);
     opacity: 0;
   }
 }
 
-/* Glow circle background */
-.glow {
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(255,102,255,0.4), transparent 70%);
-  border-radius: 50%;
-  filter: blur(80px);
-  z-index: -1;
-  animation: pulse 6s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 </style>
@@ -99,37 +92,42 @@ body {
 
 <body>
 
-<div class="glow"></div>
+<div class="card">
+  <h1>For Sheruu Di 💜</h1>
 
-<div class="container">
-  <div id="msg1" class="message">
-    I'm missing u so so much sheruu di 💜
-  </div>
+  <p id="line1">I'm missing u so so much sheruu di.</p>
 
-  <div id="msg2" class="message small">
-    I hope u r doing great,<br>
-    stay safe, stay healthy and happy.
-  </div>
+  <p id="line2">
+    I hope u r doing great. Stay safe, stay healthy and happy.
+  </p>
 
-  <div id="msg3" class="message big">
-    YOUR BROOOOO !!!! 🚀
-  </div>
+  <p id="line3">
+    Just wanted to remind you that your brother misses you.
+  </p>
+
+  <p id="line4" class="bro">
+    YOUR BROOOOO !!!! 💗
+  </p>
 </div>
 
 <script>
 
-// Smooth timeline transitions
+// Smooth text reveal timing
 setTimeout(() => {
-  document.getElementById("msg1").classList.add("show");
-}, 2000);
+  document.getElementById("line1").classList.add("show");
+}, 1000);
 
 setTimeout(() => {
-  document.getElementById("msg2").classList.add("show");
+  document.getElementById("line2").classList.add("show");
+}, 3000);
+
+setTimeout(() => {
+  document.getElementById("line3").classList.add("show");
+}, 5000);
+
+setTimeout(() => {
+  document.getElementById("line4").classList.add("show");
 }, 7000);
-
-setTimeout(() => {
-  document.getElementById("msg3").classList.add("show");
-}, 12000);
 
 // Floating hearts generator
 function createHeart() {
@@ -137,16 +135,15 @@ function createHeart() {
   heart.classList.add("heart");
   heart.innerHTML = "💜";
   heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = (Math.random() * 20 + 15) + "px";
-  heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+  heart.style.fontSize = (Math.random() * 15 + 15) + "px";
   document.body.appendChild(heart);
 
   setTimeout(() => {
     heart.remove();
-  }, 8000);
+  }, 7000);
 }
 
-setInterval(createHeart, 500);
+setInterval(createHeart, 600);
 
 </script>
 
