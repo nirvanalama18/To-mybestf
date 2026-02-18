@@ -1,151 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Signal to Didi 💫</title>
+<title>For Sheruu Di 💜</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-body {
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  height: 100vh;
   overflow: hidden;
-  background: black;
-  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
 }
 
-canvas { display: block; }
-
-.overlay {
-  position: absolute;
-  width: 100%;
+.container {
   text-align: center;
-  top: 45%;
+  position: relative;
+  width: 90%;
+  max-width: 700px;
+}
+
+.message {
   font-size: 2rem;
-  letter-spacing: 2px;
   opacity: 0;
-  transition: opacity 2s ease;
+  transform: translateY(30px);
+  transition: all 1.5s ease;
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .small {
   font-size: 1.4rem;
+  margin-top: 20px;
+  line-height: 1.6;
 }
+
+.big {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-top: 30px;
+  color: #ffb3ff;
+  text-shadow: 0 0 15px #ff66ff;
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp 8s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Glow circle background */
+.glow {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,102,255,0.4), transparent 70%);
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1;
+  animation: pulse 6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
 </style>
 </head>
+
 <body>
 
-<div class="overlay" id="text1">Incoming transmission...</div>
-<div class="overlay" id="text2">To: Didi 💜</div>
-<div class="overlay small" id="text3">
-I miss you. I love you.<br>No dramatic speech.
+<div class="glow"></div>
+
+<div class="container">
+  <div id="msg1" class="message">
+    I'm missing u so so much sheruu di 💜
+  </div>
+
+  <div id="msg2" class="message small">
+    I hope u r doing great,<br>
+    stay safe, stay healthy and happy.
+  </div>
+
+  <div id="msg3" class="message big">
+    YOUR BROOOOO !!!! 🚀
+  </div>
 </div>
 
-<audio id="music" src="piano.mp3"></audio>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
 <script>
-const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(
-  60,
-  window.innerWidth/window.innerHeight,
-  0.1,
-  1000
-);
-
-camera.position.set(0,0,8);
-
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
-document.body.appendChild(renderer.domElement);
-
-// Lighting
-const light = new THREE.PointLight(0xff66ff, 2);
-light.position.set(5,5,5);
-scene.add(light);
-
-const ambient = new THREE.AmbientLight(0x222244);
-scene.add(ambient);
-
-// Starfield
-const starsGeometry = new THREE.BufferGeometry();
-const starCount = 6000;
-const positions = [];
-
-for (let i = 0; i < starCount; i++) {
-  positions.push(
-    (Math.random() - 0.5) * 400,
-    (Math.random() - 0.5) * 400,
-    (Math.random() - 0.5) * 400
-  );
-}
-
-starsGeometry.setAttribute(
-  'position',
-  new THREE.Float32BufferAttribute(positions, 3)
-);
-
-const starsMaterial = new THREE.PointsMaterial({
-  color: 0xaa88ff,
-  size: 0.7
-});
-
-const starField = new THREE.Points(starsGeometry, starsMaterial);
-scene.add(starField);
-
-// Main object (futuristic core)
-const geometry = new THREE.TorusKnotGeometry(1.5, 0.5, 200, 32);
-const material = new THREE.MeshStandardMaterial({
-  color: 0xff66ff,
-  emissive: 0x330033,
-  metalness: 0.8,
-  roughness: 0.2
-});
-
-const core = new THREE.Mesh(geometry, material);
-scene.add(core);
-
-// Animation
-function animate() {
-  requestAnimationFrame(animate);
-
-  core.rotation.x += 0.003;
-  core.rotation.y += 0.005;
-
-  starField.rotation.y += 0.0005;
-
-  // Cinematic slow camera motion
-  camera.position.z = 8 + Math.sin(Date.now() * 0.0005) * 0.5;
-
-  renderer.render(scene, camera);
-}
-animate();
-
-// Timeline
-const music = document.getElementById("music");
-
+// Smooth timeline transitions
 setTimeout(() => {
-  music.play().catch(()=>{});
-  document.getElementById("text1").style.opacity = 1;
+  document.getElementById("msg1").classList.add("show");
 }, 2000);
 
 setTimeout(() => {
-  document.getElementById("text1").style.opacity = 0;
-  document.getElementById("text2").style.opacity = 1;
-}, 9000);
+  document.getElementById("msg2").classList.add("show");
+}, 7000);
 
 setTimeout(() => {
-  document.getElementById("text2").style.opacity = 0;
-  document.getElementById("text3").style.opacity = 1;
-}, 22000);
+  document.getElementById("msg3").classList.add("show");
+}, 12000);
 
-// Responsive
-window.addEventListener('resize', () => {
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  camera.aspect = window.innerWidth/window.innerHeight;
-  camera.updateProjectionMatrix();
-});
+// Floating hearts generator
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💜";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+  heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 8000);
+}
+
+setInterval(createHeart, 500);
+
 </script>
 
 </body>
